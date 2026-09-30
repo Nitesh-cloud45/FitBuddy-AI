@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}FitBuddy – Generate Plan{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <span class="eyebrow">AI FITNESS PLANNER</span>
+
+    <h1>Build a 7-day plan that fits your goal.</h1>
+
+    <p>
+        Enter your basic details and FitBuddy will create
+        a structured workout plan plus a nutrition or recovery tip.
+    </p>
+
+</section>
+
+<section class="card">
+
+    <h2>Your Details</h2>
+
+    <form method="post" action="/generate-workout" class="form-grid">
+
+        <label>
+            Name
+            <input
+                type="text"
+                name="username"
+                placeholder="Alex"
+                required
+            >
+        </label>
+
+        <label>
+            User ID
+            <input
+                type="text"
+                name="user_id"
+                placeholder="U001"
+                required
+            >
+        </label>
+
+        <label>
+            Age
+            <input
+                type="number"
+                name="age"
+                min="18"
+                max="100"
+                required
+            >
+        </label>
+
+        <label>
+            Weight (kg)
+            <input
+                type="number"
+                name="weight"
+                min="20"
+                max="500"
+                step="0.1"
+                required
+            >
+        </label>
+
+        <label>
+            Fitness Goal
+
+            <select name="goal" required>
+                <option value="weight loss">Weight Loss</option>
+                <option value="muscle gain">Muscle Gain</option>
+                <option value="general wellness">General Wellness</option>
+                <option value="flexibility">Flexibility</option>
+            </select>
+        </label>
+
+        <label>
+            Workout Intensity
+
+            <select name="intensity" required>
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+            </select>
+        </label>
+
+        <button class="button primary full" type="submit">
+            Generate 7-Day Plan
+        </button>
+
+    </form>
+
+</section>
+
+{% endblock %}

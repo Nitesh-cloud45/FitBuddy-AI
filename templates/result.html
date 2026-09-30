@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}
+FitBuddy – Your Plan
+{% endblock %}
+
+{% block content %}
+
+<section class="hero result-hero">
+
+    <span class="eyebrow">
+        ⚡ YOUR FITBUDDY PLAN
+    </span>
+
+    <h1>
+        Your 7-day plan is ready.
+    </h1>
+
+    <p>
+        Your personalized workout and recovery recommendations
+        are shown below.
+    </p>
+
+    {% if message %}
+    <div class="alert success">
+        {{ message }}
+    </div>
+    {% endif %}
+
+</section>
+
+
+<!-- USER DETAILS -->
+
+<section class="card">
+
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">PROFILE</span>
+            <h2>Your Details</h2>
+        </div>
+    </div>
+
+    <div class="profile-grid">
+
+        <div class="profile-item">
+            <span>Name</span>
+            <strong>{{ user.username }}</strong>
+        </div>
+
+        <div class="profile-item">
+            <span>User ID</span>
+            <strong>{{ user.user_id }}</strong>
+        </div>
+
+        <div class="profile-item">
+            <span>Age</span>
+            <strong>{{ user.age }} years</strong>
+        </div>
+
+        <div class="profile-item">
+            <span>Weight</span>
+            <strong>{{ user.weight }} kg</strong>
+        </div>
+
+        <div class="profile-item">
+            <span>Goal</span>
+            <strong>{{ user.goal }}</strong>
+        </div>
+
+        <div class="profile-item">
+            <span>Intensity</span>
+            <strong>{{ user.intensity }}</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WORKOUT PLAN -->
+
+<section class="card highlight">
+
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">WORKOUT</span>
+
+            <h2>
+                🏋️ 7-Day Workout Plan
+            </h2>
+        </div>
+    </div>
+
+    <div class="plan">
+        {{ plan.original_plan }}
+    </div>
+
+</section>
+
+
+<!-- NUTRITION -->
+
+<section class="card nutrition-card">
+
+    <span class="eyebrow">
+        NUTRITION & RECOVERY
+    </span>
+
+    <h2>
+        🥗 Your Wellness Tip
+    </h2>
+
+    <p class="tip">
+        {{ plan.nutrition_tip }}
+    </p>
+
+</section>
+
+
+<!-- UPDATED PLAN -->
+
+{% if plan.updated_plan %}
+
+<section class="card highlight">
+
+    <span class="eyebrow">
+        UPDATED PLAN
+    </span>
+
+    <h2>
+        🔄 Updated Workout Plan
+    </h2>
+
+    <div class="plan">
+        {{ plan.updated_plan }}
+    </div>
+
+</section>
+
+{% endif %}
+
+
+<!-- FEEDBACK -->
+
+<section class="card feedback-card">
+
+    <span class="eyebrow">
+        PERSONALIZE
+    </span>
+
+    <h2>
+        ✏️ Improve Your Plan
+    </h2>
+
+    <p class="muted">
+        Tell FitBuddy what you want to change and the plan
+        can be adjusted.
+    </p>
+
+    <form
+        method="post"
+        action="/submit-feedback"
+    >
+
+        <input
+            type="hidden"
+            name="user_id"
+            value="{{ user.user_id }}"
+        >
+
+        <textarea
+            name="feedback"
+            rows="5"
+            placeholder="Example: The workouts are too difficult. Make them easier."
+            required
+        ></textarea>
+
+        <button
+            class="button primary"
+            type="submit"
+        >
+            🔄 Update My Plan
+        </button>
+
+    </form>
+
+</section>
+
+
+<!-- BACK -->
+
+<section class="actions">
+
+    <a
+        class="button secondary"
+        href="/"
+    >
+        ← Create Another Plan
+    </a>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+FitBuddy – Admin
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="card">
+
+
+    <div class="section-heading">
+
+
+        <div>
+
+            <span class="eyebrow">
+                LOCAL ADMIN
+            </span>
+
+
+            <h1>
+                All Users and Plans
+            </h1>
+
+        </div>
+
+
+        <a
+            class="button secondary"
+            href="/"
+        >
+            Home
+        </a>
+
+
+    </div>
+
+
+    <p class="muted">
+
+        This page is protected by
+        the admin key stored in
+        your .env file.
+
+    </p>
+
+
+</section>
+
+
+{% if not users %}
+
+
+<section class="card">
+
+    <p>
+        No users have been created yet.
+    </p>
+
+</section>
+
+
+{% endif %}
+
+
+{% for user in users %}
+
+
+{% set plan = plans.get(user.user_id) %}
+
+
+<section class="card">
+
+
+    <div class="section-heading">
+
+
+        <div>
+
+            <h2>
+
+                {{ user.username }}
+
+                <span class="badge">
+                    {{ user.user_id }}
+                </span>
+
+            </h2>
+
+
+            <p class="muted">
+
+                {{ user.age }} years ·
+
+                {{ user.weight }} kg ·
+
+                {{ user.goal }} ·
+
+                {{ user.intensity }}
+
+            </p>
+
+        </div>
+
+
+        <form
+            method="post"
+            action="/admin/users/{{ user.user_id }}/delete"
+            onsubmit="return confirm('Delete this user and plan?');"
+        >
+
+            <input
+                type="hidden"
+                name="key"
+                value="{{ admin_key }}"
+            >
+
+
+            <button
+                class="button danger"
+                type="submit"
+            >
+                Delete
+            </button>
+
+        </form>
+
+
+    </div>
+
+
+    {% if plan %}
+
+
+    <h3>
+        Original Plan
+    </h3>
+
+
+    <pre class="plan compact">{{ plan.original_plan }}</pre>
+
+
+    {% if plan.updated_plan %}
+
+
+    <h3>
+        Updated Plan
+    </h3>
+
+
+    <pre class="plan compact">{{ plan.updated_plan }}</pre>
+
+
+    <p class="muted">
+
+        <strong>
+            Feedback:
+        </strong>
+
+        {{ plan.feedback }}
+
+    </p>
+
+
+    {% endif %}
+
+
+    {% endif %}
+
+
+</section>
+
+
+{% endfor %}
+
+
+{% endblock %}
